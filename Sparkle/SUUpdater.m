@@ -75,12 +75,15 @@ static NSString *const SUUpdaterDefaultsObservationContext = @"SUUpdaterDefaults
 
 // Debug is not defined in released builds and pedantic mode can enable -Wundef
 #if defined(DEBUG) && DEBUG
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-load-method"
 + (void)load
 {
     // Debug builds have different configurations for update check intervals
     // We're using NSLog instead of SULog here because we don't want to start Sparkle's logger here
     NSLog(@"WARNING: This is running a Debug build of Sparkle; don't use this in production!");
 }
+#pragma clang diagnostic pop
 #endif
 
 + (SUUpdater *)sharedUpdater
